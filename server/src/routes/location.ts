@@ -1,6 +1,6 @@
 import { Elysia, t } from 'elysia';
-import { env } from '../config/env';
-import { reverseGeocode } from '../services/kakao';
+import { env } from '@config/env';
+import { reverseGeocode } from '@services/kakao';
 
 export const location = new Elysia({ name: 'routes/location' }).post(
   '/location',
@@ -58,4 +58,3 @@ export const location = new Elysia({ name: 'routes/location' }).post(
     }),
   }
 );
-

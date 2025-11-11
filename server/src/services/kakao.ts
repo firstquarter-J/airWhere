@@ -1,16 +1,15 @@
-export interface KakaoAddress {
-  sido: string;
-  full: string;
-  roadAddress: string;
-}
+import type { KakaoAddress } from '@types-app/kakao';
+export type { KakaoAddress } from '@types-app/kakao';
+import { KAKAO_COORD2ADDR_URL_BASE } from '@config/constants';
+import { fetchWithTimeout } from '@utils/http';
 
 export async function reverseGeocode(
   lat: number,
   lng: number,
   apiKey: string
 ): Promise<KakaoAddress | null> {
-  const url = `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${lng}&y=${lat}`;
-  const response = await fetch(url, {
+  const url = `${KAKAO_COORD2ADDR_URL_BASE}?x=${lng}&y=${lat}&input_coord=WGS84`;
+  const response = await fetchWithTimeout(url, {
     headers: { Authorization: `KakaoAK ${apiKey}` },
   });
 
@@ -23,7 +22,8 @@ export async function reverseGeocode(
   }
 
   if (!response.ok) {
-    const message = data?.message || response.statusText || 'Kakao request failed';
+    const message =
+      data?.message || response.statusText || 'Kakao request failed';
     throw new Error(message);
   }
 
@@ -40,4 +40,3 @@ export async function reverseGeocode(
     roadAddress: address.road_address?.address_name || '',
   } satisfies KakaoAddress;
 }
-
