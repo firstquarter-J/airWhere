@@ -1,19 +1,10 @@
 {
   "name": "airwhere",
   "private": true,
-  "workspaces": [
-    "server",
-    "client"
-  ],
   "scripts": {
-    "dev:server": "cd server && bun run dev",
-    "dev:client": "cd client && bun run dev",
-    "start:server": "cd server && bun run start", 
-    "build:server": "cd server && bun run build",
-    "build:client": "cd client && bun run build"
-  },
-  "devDependencies": {
-    "@types/bun": "latest",
-    "typescript": "^5"
+    "dev:server": "cd server && bun --watch index.ts",
+    "dev:client": "cd client && npm start",
+    "start:server": "cd server && bun run start",
+    "test:server": "cd server && bun test"
   }
 }
