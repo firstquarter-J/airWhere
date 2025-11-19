@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
+  RefreshControl,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useLocation } from './hooks/useLocation';
@@ -65,11 +66,12 @@ export default function App() {
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
         refreshControl={
-          <TouchableOpacity onPress={handleRefresh}>
-            <View style={styles.refreshButton}>
-              <Text style={styles.refreshText}>↻ 새로고침</Text>
-            </View>
-          </TouchableOpacity>
+          <RefreshControl
+            refreshing={locationLoading || airLoading}
+            onRefresh={handleRefresh}
+            colors={['#3B82F6']}
+            tintColor="#3B82F6"
+          />
         }
       >
         <View style={styles.header}>
@@ -172,15 +174,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: '600',
-  },
-  refreshButton: {
-    padding: 12,
-    alignItems: 'center',
-  },
-  refreshText: {
-    fontSize: 16,
-    color: '#3B82F6',
     fontWeight: '600',
   },
   refreshButtonBottom: {
