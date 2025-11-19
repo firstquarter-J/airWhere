@@ -15,7 +15,13 @@ export interface AirQualityReading {
 
 export interface AirQualityResponse {
   success: boolean;
-  data: AirQualityReading;
+  location: {
+    lat: number;
+    lng: number;
+  };
+  air: AirQualityReading;
+  timestamp: string;
+  message?: string;
 }
 
 export interface LocationRequest {
